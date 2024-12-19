@@ -46,24 +46,72 @@ Interactive dashboard for NBA statistics and analysis powered by Amazon Web Serv
   - Seeding Predictions
 
 ## Project Structure
-/config
-/parameters # AWS Systems Manager Parameter Store configurations
-/quicksight # QuickSight configuration templates
-/data
-/raw # Original NBA data
-/processed # Cleaned and transformed data
-/dashboards
-/team_analysis # Team-focused dashboard templates
-/player_stats # Player statistics visualizations
-/season_trends # Season analysis dashboards
-/docs
-/setup # Setup and configuration guides
-/images # Dashboard screenshots and diagrams
-/api # API documentation
-/scripts
-/data_prep # Data preparation and cleaning scripts
-/refresh # Data refresh automation scripts
-/validation # Data quality validation scripts
+nba-analytics-dashboard/
+├── config/
+│   ├── parameters/
+│   │   ├── parameter-store/
+│   │   │   └── params.json    # Non-sensitive parameters
+│   │   └── secrets/
+│   │        └── secrets.json  # Template for secrets (no actual values)
+│
+├── data/
+│   ├── raw/
+│   │   ├── teams/            # Raw team data
+│   │   ├── players/          # Raw player statistics
+│   │   └── games/            # Raw game data
+│   └── processed/
+│       ├── teams/            # Processed team analytics
+│       ├── players/          # Processed player analytics
+│       └── aggregated/       # Combined analytics
+│
+├── dashboards/
+│   ├── team_analysis/
+│   │   ├── performance.json  # Team performance dashboard
+│   │   ├── comparison.json   # Team comparison dashboard
+│   │   └── trends.json       # Team trends dashboard
+│   ├── player_stats/
+│   │   ├── overview.json     # Player overview dashboard
+│   │   ├── leaders.json      # Statistical leaders dashboard
+│   │   └── profiles.json     # Individual player profiles
+│   └── season_trends/
+│       ├── standings.json    # League standings dashboard
+│       ├── playoffs.json     # Playoff analysis dashboard
+│       └── predictions.json  # Season predictions dashboard
+│
+├── docs/
+│   ├── setup/
+│   │   ├── aws-setup.md     # AWS configuration guide
+│   │   ├── quicksight.md    # QuickSight setup guide
+│   │   └── parameters.md    # Parameter store setup
+│   ├── images/
+│   │   ├── dashboards/      # Dashboard screenshots
+│   │   └── diagrams/        # Architecture diagrams
+│   └── api/
+│       ├── endpoints.md      # API endpoint documentation
+│       └── schemas.md        # Data schemas
+│
+├── scripts/
+│   ├── data_prep/
+│   │   ├── clean_data.py    # Data cleaning scripts
+│   │   ├── transform.py     # Data transformation
+│   │   └── validate.py      # Data validation
+│   ├── refresh/
+│   │   ├── daily_update.py  # Daily refresh script
+│   │   └── sync.py         # Data synchronization
+│   └── validation/
+│       ├── quality_check.py # Data quality tests
+│       └── schema_check.py  # Schema validation
+│
+├── tests/
+│   ├── data_tests/          # Data validation tests
+│   ├── script_tests/        # Script unit tests
+│   └── integration_tests/   # Integration tests
+│
+├── .gitignore              # Git ignore file
+├── LICENSE                 # Project license
+├── README.md              # Project documentation
+└── requirements.txt       # Python dependencies
+
 
 
 
