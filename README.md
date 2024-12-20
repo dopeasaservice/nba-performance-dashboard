@@ -1,7 +1,6 @@
-# NBA Analytics Dashboard
+# NBA Analytics Dashboard Overview
 
 This project creates a serverless NBA statistics dashboard using data from Sportsdata.io API. The system automatically collects, stores, and visualizes NBA statistics including team standings, player performance, and team metrics using AWS services.
-
 
 ## Dashboard Features
 
@@ -12,8 +11,9 @@ This project creates a serverless NBA statistics dashboard using data from Sport
 - Scoring Leaders
 - Home Wins tracker
 
-## Architecture
+----
 
+## Architecture
 This architecture is built using only serverless services to take full advantage of the cloud.
 
 Sportsdata.io API → Lambda → S3 → QuickSight → Dashboard
@@ -42,6 +42,13 @@ Components:
 │       └── team_stats/
 │
 └── README.md
+
+
+## Prerequisites
+AWS Account with appropriate permissions
+Sportsdata.io API subscription
+AWS CLI configured
+Python 3.8+
 
 ## Setup Guide
 
@@ -86,46 +93,22 @@ s3://nba-raw-data-{timestamp}/
     }
 }
 ```
+
 ### 5. Dashboard Configuration
-#### 1. Create Dataset:
+#### A. Create Dataset:
    - Use S3 manifest file
    - Import to SPICE
 
-#### 2. Create Visualizations:
+#### B. Create Visualizations:
    - Team Standings Table
    - Top Players Bar Chart
    - Team Performance KPIs
 
-#### 3. Configure Refresh Schedule:
+#### C. Configure Refresh Schedule:
    - Set up data refresh interval
    - Configure update triggers
 
-## Prerequisites
-AWS Account with appropriate permissions
-Sportsdata.io API subscription
-AWS CLI configured
-Python 3.8+
 
-## Services Used
-AWS Lambda
-Amazon S3
-Amazon QuickSight
-AWS Secrets Manager
-
-## Contributing
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/NewFeature`)
-3. Commit changes (`git commit -m 'Add NewFeature'`)
-4. Push to branch (`git push origin feature/NewFeature`)
-5. Open Pull Request
-
-## Resources
-- [AWS AppFlow Documentation](https://aws.amazon.com/appflow/)
-- [AWS Glue DataBrew Documentation](https://aws.amazon.com/glue/features/databrew/)
-- [Amazon QuickSight Documentation](https://aws.amazon.com/quicksight/)
-
-## License
-This project is licensed under the MIT License - see LICENSE.md for details
 
 ## Acknowledgments
 - CozyCloudCrew
@@ -134,3 +117,54 @@ This project is licensed under the MIT License - see LICENSE.md for details
 - Community Contributors
 
 Remember to CleanUpYourCloud!
+
+
+
+---
+## NBA Analytics Dashboard Resources
+### API Data Source [1]
+Sportsdata.io NBA API Documentation: https://sportsdata.io/developers/api-documentation/nba
+
+### Lambda
+AWS Lambda Developer Guide: https://docs.aws.amazon.com/lambda/latest/dg/welcome.html
+Python Lambda Functions: https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html
+Lambda Environment Variables: https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html
+
+### S3
+S3 User Guide: https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html
+S3 JSON Object Guide: https://docs.aws.amazon.com/AmazonS3/latest/userguide/uploading-downloading-objects.html
+
+### QuickSight
+QuickSight User Guide: https://docs.aws.amazon.com/quicksight/latest/user/welcome.html
+S3 Files in QuickSight: https://docs.aws.amazon.com/quicksight/latest/user/create-a-data-set-s3.html
+Manifest File Reference: https://docs.aws.amazon.com/quicksight/latest/user/supported-manifest-file-format.html
+
+### AWS SDK for Python (Boto3)
+Boto3 Documentation: https://boto3.amazonaws.com/v1/documentation/api/latest/index.html
+S3 Boto3 Guide: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html
+
+### AWS CLI
+AWS CLI Installation: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+AWS CLI Configuration: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html
+
+### AWS IAM
+IAM User Guide: https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html
+IAM Role Creation: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html
+
+### AWS Secrets Manager
+Secrets Manager User Guide: https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html
+Store and Retrieve Secrets: https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_create-basic-secret.html
+-------
+
+
+## Contributing
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/NewFeature`)
+3. Commit changes (`git commit -m 'Add NewFeature'`)
+4. Push to branch (`git push origin feature/NewFeature`)
+5. Open Pull Request
+
+## License
+This project is licensed under the MIT License - see LICENSE.md for details
+
+
