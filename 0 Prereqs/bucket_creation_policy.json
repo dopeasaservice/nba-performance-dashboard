@@ -1,0 +1,24 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:CreateBucket",
+                "s3:PutBucketVersioning",
+                "s3:PutBucketLifecycleConfiguration",
+                "s3:DeleteBucket"
+            ],
+            "Resource": "arn:aws:s3:::nba-raw-data-*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:CreateSecret",
+                "secretsmanager:UpdateSecret"
+            ],
+            "Resource": "arn:aws:secretsmanager:*:*:secret:nba_dashboard_secrets*"
+        }
+    ]
+}
