@@ -14,9 +14,9 @@ This project creates a serverless NBA statistics dashboard using data from Sport
 ## Architecture
 This architecture is built using only serverless services to take full advantage of the cloud.
 
-###Sportsdata.io API → Lambda → S3 → QuickSight → Dashboard
+### Sportsdata.io API → Lambda → S3 → QuickSight → Dashboard
 
-###Components:
+### Components:
 1. Data Source: Sportsdata.io API
 2. API Key Storage: AWS Secrets Manager
 3. Data Collection: AWS Lambda
@@ -63,7 +63,7 @@ Python 3.8+
 #### Deploy data collection Lambda function
 - Create Lambda function
 - Create S3 bucket
-- Set environment variables
+- Set S3 bucket name variable in AWS Secrets Manager
 - Configure API trigger
 - Set execution role permissions
 
@@ -78,39 +78,17 @@ nba-raw-data-{timestamp}/
 </pre>
 
 ### 4. QuickSight Setup
-#### Manifest file configuration
-```
-{
-    "fileLocations": [
-        {
-            "URIs": [
-                "s3://nba-raw-data-{timestamp}/standings.json",
-                "s3://nba-raw-data-{timestamp}/player_stats.json",
-                "s3://nba-raw-data-{timestamp}/team_stats.json"
-            ]
-        }
-    ],
-    "globalUploadSettings": {
-        "format": "JSON",
-        "delimiter": ",",
-        "containsHeader": true
-    }
-}
-```
-
-### 5. Dashboard Configuration
 #### A. Create Dataset:
-   - Use S3 manifest file
+   - Use S3 manifest file to create dataset from the S3 bucket nba-raw-data-{timestamp}
    - Import to SPICE
 #### B. Create Visualizations:
-   - Team Standings Table
-   - Top Players Bar Chart
    - Team Performance KPIs
+    - Win percentage analysis
+    - Scoring Leaders
+    - Home Wins tracker
 #### C. Configure Refresh Schedule:
-   - Set up data refresh interval
+   - Set up hourly data refresh interval
    - Configure update triggers
-
-
 
 ## Acknowledgments
 - CozyCloudCrew
