@@ -1,9 +1,8 @@
 # NBA Analytics Dashboard Overview
-
 This project creates a serverless NBA statistics dashboard using data from Sportsdata.io API. The system automatically collects, stores, and visualizes NBA statistics including team standings, player performance, and team metrics using AWS services.
 
-## Dashboard Features
 
+## Dashboard Features
 ### Team Performance Analysis 🏀
 - Team rankings
 - Conference grouping
@@ -11,14 +10,13 @@ This project creates a serverless NBA statistics dashboard using data from Sport
 - Scoring Leaders
 - Home Wins tracker
 
-----
 
 ## Architecture
 This architecture is built using only serverless services to take full advantage of the cloud.
 
-Sportsdata.io API → Lambda → S3 → QuickSight → Dashboard
+###Sportsdata.io API → Lambda → S3 → QuickSight → Dashboard
 
-Components:
+###Components:
 1. Data Source: Sportsdata.io API
 2. API Key Storage: AWS Secrets Manager
 3. Data Collection: AWS Lambda
@@ -27,21 +25,24 @@ Components:
 
 
 ## Project Structure
+<pre>
+project-root/
 ├── lambda/
 │   └── nba_data_collector/
-│       ├── lambda_function.py    # API data collection logic
-│       └── requirements.txt      # Python dependencies
+│       ├── lambda_function.py     # API data collection logic
+│       └── requirements.txt       # Python dependencies
 │
 ├── quicksight/
-│   └── manifest.json            # S3 data source configuration
+│   └── manifest.json             # S3 data source configuration
 │
 ├── s3/
 │   └── raw/
-│       ├── standings/
-│       ├── player_stats/
-│       └── team_stats/
+│       ├── standings/            # Team standings data
+│       ├── player_stats/         # Player statistics
+│       └── team_stats/          # Team statistics
 │
 └── README.md
+</pre>
 
 
 ## Prerequisites
@@ -49,6 +50,7 @@ AWS Account with appropriate permissions
 Sportsdata.io API subscription
 AWS CLI configured
 Python 3.8+
+
 
 ## Setup Guide
 
@@ -66,12 +68,17 @@ Python 3.8+
 - Set execution role permissions
 
 ### 3. S3 Configuration
-#### S3 bucket structure
-s3://nba-raw-data-{timestamp}/
-  ├── raw/
-      ├── standings/data.json
-      ├── player_stats/data.json
-      └── team_stats/data.json
+#### S3 Configuration
+<pre>
+nba-raw-data-{timestamp}/
+└── raw/
+    ├── standings/
+    │   └── data.json
+    ├── player_stats/
+    │   └── data.json
+    └── team_stats/
+        └── data.json
+</pre>
 
 ### 4. QuickSight Setup
 #### Manifest file configuration
@@ -98,12 +105,10 @@ s3://nba-raw-data-{timestamp}/
 #### A. Create Dataset:
    - Use S3 manifest file
    - Import to SPICE
-
 #### B. Create Visualizations:
    - Team Standings Table
    - Top Players Bar Chart
    - Team Performance KPIs
-
 #### C. Configure Refresh Schedule:
    - Set up data refresh interval
    - Configure update triggers
@@ -119,8 +124,6 @@ s3://nba-raw-data-{timestamp}/
 Remember to CleanUpYourCloud!
 
 
-
----
 ## NBA Analytics Dashboard Resources
 ### API Data Source [1]
 Sportsdata.io NBA API Documentation: https://sportsdata.io/developers/api-documentation/nba
@@ -154,7 +157,6 @@ IAM Role Creation: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_cre
 ### AWS Secrets Manager
 Secrets Manager User Guide: https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html
 Store and Retrieve Secrets: https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_create-basic-secret.html
--------
 
 
 ## Contributing
@@ -166,5 +168,3 @@ Store and Retrieve Secrets: https://docs.aws.amazon.com/secretsmanager/latest/us
 
 ## License
 This project is licensed under the MIT License - see LICENSE.md for details
-
-
