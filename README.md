@@ -1,147 +1,116 @@
 # NBA Analytics Dashboard
 
-Interactive NBA statistics dashboard built with AWS no-code/low-code services. View team stats, player performance, and season trends through dynamic visualizations.
+This project creates a serverless NBA statistics dashboard using data from Sportsdata.io API. The system automatically collects, stores, and visualizes NBA statistics including team standings, player performance, and team metrics using AWS services.
+
 
 ## Dashboard Features
 
-### Team Analysis 🏀
-- Win/Loss Records
-- Points Per Game
-- Field Goal Percentage 
-- Home vs Away Performance
-- Conference/Division Standings
-
-### Player Statistics 👤
+### Team Performance Analysis 🏀
+- Team rankings
+- Conference grouping
+- Win percentage analysis
 - Scoring Leaders
-- Performance Metrics
-- Player Comparisons
-- Career Statistics
-- Hot/Cold Streaks
-
-### Season Insights 📊
-- Win/Loss Trends
-- Playoff Race Tracking
-- Statistical Leaders
-- Head-to-Head Records
+- Home Wins tracker
 
 ## Architecture
 
-Built entirely with AWS no-code/low-code services:
+This architecture is built using only serverless services to take full advantage of the cloud.
 
-- **Data Collection**: Amazon AppFlow
-  - Automated NBA API data ingestion
-  - Scheduled daily refreshes
-  - Raw data stored in S3
+Sportsdata.io API → Lambda → S3 → QuickSight → Dashboard
 
-- **Data Processing**: AWS Glue DataBrew
-  - Visual data transformations
-  - Calculated metrics
-  - Data quality validation
+Components:
+1. Data Source: Sportsdata.io API
+2. API Key Storage: AWS Secrets Manager
+3. Data Collection: AWS Lambda
+4. Data Storage: Amazon S3
+5. Data Processing & Visualization: Amazon QuickSight
 
-- **Visualization**: Amazon QuickSight
-  - Interactive dashboards
-  - Drill-down capabilities
-  - Auto-refresh enabled
 
 ## Project Structure
-nba-analytics-dashboard/
-├── appflow/
-│   └── flows/
-│       ├── nba_teams_flow.json        # Teams data collection flow
-│       ├── nba_players_flow.json      # Players data collection flow
-│       └── nba_games_flow.json        # Games data collection flow
-│
-├── databrew/
-│   └── recipes/
-│       ├── teams/
-│       │   ├── standings.json         # Team standings transformation
-│       │   ├── stats.json            # Team statistics cleanup
-│       │   └── rankings.json         # Team rankings calculations
-│       ├── players/
-│       │   ├── stats.json            # Player statistics cleanup
-│       │   ├── averages.json         # Player averages calculation
-│       │   └── leaders.json          # League leaders processing
-│       └── games/
-│           ├── scores.json           # Game scores processing
-│           ├── trends.json           # Win/loss trends
-│           └── predictions.json      # Game predictions prep
+├── lambda/
+│   └── nba_data_collector/
+│       ├── lambda_function.py    # API data collection logic
+│       └── requirements.txt      # Python dependencies
 │
 ├── quicksight/
-│   ├── datasets/
-│   │   ├── team_performance.json     # Team performance dataset
-│   │   ├── player_stats.json        # Player statistics dataset
-│   │   └── season_analysis.json     # Season trends dataset
-│   │
-│   ├── dashboards/
-│   │   ├── team_insights/
-│   │   │   ├── overview.json        # Team overview dashboard
-│   │   │   ├── comparison.json      # Team comparison dashboard
-│   │   │   └── trends.json          # Team trends dashboard
-│   │   │
-│   │   ├── player_insights/
-│   │   │   ├── overview.json        # Player overview dashboard
-│   │   │   ├── leaders.json         # Statistical leaders dashboard
-│   │   │   └── comparison.json      # Player comparison dashboard
-│   │   │
-│   │   └── season_insights/
-│   │       ├── standings.json       # League standings dashboard
-│   │       ├── playoff_race.json    # Playoff analysis dashboard
-│   │       └── predictions.json     # Season predictions dashboard
-│   │
-│   └── analysis/
-│       ├── calculated_fields.json   # QuickSight calculated fields
-│       └── parameters.json         # QuickSight parameters
+│   └── manifest.json            # S3 data source configuration
 │
-├── docs/
-│   ├── setup/
-│   │   ├── appflow.md              # AppFlow setup guide
-│   │   ├── databrew.md             # DataBrew setup guide
-│   │   └── quicksight.md           # QuickSight setup guide
-│   │
-│   ├── images/
-│   │   ├── dashboards/             # Dashboard screenshots
-│   │   └── architecture/           # Architecture diagrams
-│   │
-│   └── maintenance/
-│       ├── refresh.md              # Data refresh guide
-│       └── troubleshooting.md      # Troubleshooting guide
+├── s3/
+│   └── raw/
+│       ├── standings/
+│       ├── player_stats/
+│       └── team_stats/
 │
-├── .gitignore                      # Git ignore file
-├── LICENSE                         # Project license
-└── README.md                       # Project documentation
-
-
-
+└── README.md
 
 ## Setup Guide
 
-### Prerequisites
-- AWS Account
-- QuickSight Enterprise Edition
-- NBA API access
+### 1. API Configuration
+#### Set up Sportsdata.io API credentials
+- Register at Sportsdata.io
+- Obtain API key
+- Store API key in AWS Secrets Manager
 
-### Quick Start
-1. **Data Collection**
-   - Configure AppFlow for NBA API connection
-   - Set up S3 buckets for data storage
-   - Enable daily refresh schedule
+### 2.Lambda Deployment
+#### Deploy data collection Lambda function
+- Create Lambda function
+- Set environment variables
+- Configure API trigger
+- Set execution role permissions
 
-2. **Data Processing**
-   - Import DataBrew recipes
-   - Configure transformation jobs
-   - Set up data validation
+### 3. S3 Configuration
+#### S3 bucket structure
+s3://nba-raw-data-{timestamp}/
+  ├── raw/
+      ├── standings/data.json
+      ├── player_stats/data.json
+      └── team_stats/data.json
 
-3. **Dashboard Setup**
-   - Create QuickSight datasets
-   - Import dashboard templates
-   - Configure auto-refresh
+### 4. QuickSight Setup
+#### Manifest file configuration
+```
+{
+    "fileLocations": [
+        {
+            "URIs": [
+                "s3://nba-raw-data-20241218023959/raw/standings/data.json",
+                "s3://nba-raw-data-20241218023959/raw/player_stats/data.json",
+                "s3://nba-raw-data-20241218023959/raw/team_stats/data.json"
+            ]
+        }
+    ],
+    "globalUploadSettings": {
+        "format": "JSON",
+        "delimiter": ",",
+        "containsHeader": true
+    }
+}
+```
+### 5. Dashboard Configuration
+#### 1. Create Dataset:
+   - Use S3 manifest file
+   - Import to SPICE
 
-Detailed setup instructions available in `/docs/setup/`
+#### 2. Create Visualizations:
+   - Team Standings Table
+   - Top Players Bar Chart
+   - Team Performance KPIs
 
-## Data Refresh
-- NBA data refreshed daily via AppFlow
-- Automated DataBrew transformations
-- QuickSight dashboards auto-update
+#### 3. Configure Refresh Schedule:
+   - Set up data refresh interval
+   - Configure update triggers
+
+## Prerequisites
+AWS Account with appropriate permissions
+Sportsdata.io API subscription
+AWS CLI configured
+Python 3.8+
+
+## Services Used
+AWS Lambda
+Amazon S3
+Amazon QuickSight
+AWS Secrets Manager
 
 ## Contributing
 1. Fork the repository
@@ -164,5 +133,4 @@ This project is licensed under the MIT License - see LICENSE.md for details
 - AWS Documentation
 - Community Contributors
 
----
-Built with ❤️ using AWS no-code services
+Remember to CleanUpYourCloud!
