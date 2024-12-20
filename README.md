@@ -44,7 +44,6 @@ project-root/
 └── README.md
 </pre>
 
-
 ## Prerequisites
 AWS Account with appropriate permissions
 Sportsdata.io API subscription
@@ -63,6 +62,7 @@ Python 3.8+
 ### 2.Lambda Deployment
 #### Deploy data collection Lambda function
 - Create Lambda function
+- Create S3 bucket
 - Set environment variables
 - Configure API trigger
 - Set execution role permissions
@@ -72,12 +72,9 @@ Python 3.8+
 <pre>
 nba-raw-data-{timestamp}/
 └── raw/
-    ├── standings/
-    │   └── data.json
-    ├── player_stats/
-    │   └── data.json
-    └── team_stats/
-        └── data.json
+    ├── standings.json
+    ├── player_stats.json
+    └── team_stats.json
 </pre>
 
 ### 4. QuickSight Setup
@@ -87,9 +84,9 @@ nba-raw-data-{timestamp}/
     "fileLocations": [
         {
             "URIs": [
-                "s3://nba-raw-data-20241218023959/raw/standings/data.json",
-                "s3://nba-raw-data-20241218023959/raw/player_stats/data.json",
-                "s3://nba-raw-data-20241218023959/raw/team_stats/data.json"
+                "s3://nba-raw-data-{timestamp}/standings.json",
+                "s3://nba-raw-data-{timestamp}/player_stats.json",
+                "s3://nba-raw-data-{timestamp}/team_stats.json"
             ]
         }
     ],
