@@ -55,7 +55,7 @@ Python 3.8+
 
 ### 1. API Configuration
 #### Set up Sportsdata.io API credentials
-- Register at Sportsdata.io
+- Register for free trial at Sportsdata.io
 - Obtain API key
 - Store API key in AWS Secrets Manager
 
